@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.together.dao.user.UserDao" >
+
+<resultMap id="BaseResultMap" type="com.together.pojo.user.User" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="signature" property="signature" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="province_id" property="province_id" jdbcType="INTEGER" />
+    <result column="city_id" property="city_id" jdbcType="INTEGER" />
+    <result column="region_id" property="region_id" jdbcType="INTEGER" />
+    <result column="avatar" property="avatar" jdbcType="INTEGER" /> 
+ </resultMap>
+
+<insert id= "insertUser" useGeneratedKeys="true" keyProperty="uid" parameterType = "com.together.pojo.user.User">
+	insert into T_User 
+	<trim prefix="(" suffix=")"  suffixOverrides= ",">
+		<if	test="username != null">username,</if>
+		<if	test="password != null">password,</if>
+		<if	test="telephone != null">telephone,</if>
+		<if	test="nickname != null">nickname,</if>
+		<if	test="email != null">email,</if>
+		<if	test="sex != null">sex,</if>
+		<if	test="birthday != null">birthday,</if>
+		<if	test="signature != null">signature,</if>
+		<if	test="avatar != null">avatar,</if>
+		<if	test="province_id != null">province_id,</if>
+		<if	test="city_id != null">city_id,</if>
+		<if	test="region_id != null">region_id,</if>
+		<if	test="add_time != null">add_time</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if	test="username != null"> #{username},</if>
+		<if	test="password != null"> #{password},</if>
+		<if	test="telephone != null"> #{telephone},</if>
+		<if	test="nickname != null">#{nickname},</if>
+		<if	test="email != null">#{email},</if>
+		<if	test="sex != null">#{sex},</if>
+		<if	test="birthday != null">#{birthday},</if>
+		<if	test="signature != null">#{signature},</if>
+		<if	test="avatar != null">#{avatar},</if>
+		<if	test="province_id != null">#{province_id},</if>
+		<if	test="city_id != null">#{city_id},</if>
+		<if	test="region_id != null">#{region_id},</if>
+		<if	test="add_time != null">#{add_time}</if>
+	</trim>
+</insert>
+
+
+ <!-- 登陆 -->
+  <select id="login" resultMap="BaseResultMap">
+  		select * from T_User where password=#{pass} and telephone=#{tel}
+  </select>
+  
+  <!-- 登陆 -->
+  <select id="selectByTel" resultMap="BaseResultMap">
+  		select * from T_User where telephone = #{tel}
+  </select>
+  
+</mapper>

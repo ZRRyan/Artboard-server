@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.together.dao.user.UserTagDao" >
+
+<resultMap id="BaseResultMap" type="com.together.pojo.user.UserTag" >
+    <id column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="tag" property="tagId" jdbcType="VARCHAR" />
+  </resultMap>
+
+<insert id= "insertUserTag" useGeneratedKeys="true" keyProperty="id" parameterType = "com.together.pojo.user.UserTag">
+	insert into T_UserTag 
+	<trim prefix="(" suffix=")"  suffixOverrides= ",">
+		<if	test="uid != null">uid,</if>
+		<if	test="tag != null">tag,</if>
+	</trim>
+	
+	<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if	test="uid != null"> #{uid},</if>
+		<if	test="tag != null"> #{tag},</if>
+	</trim>
+</insert>
+
+ <select id="queryUserTags"  resultMap="BaseResultMap">
+  		select * from T_UserTag where uid = #{uid}
+  </select>
+
+
+</mapper>
